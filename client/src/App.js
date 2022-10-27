@@ -1,9 +1,17 @@
-// import React, {useCallback, useEffect, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import './App.css';
 // import {ApiClient} from "./ApiClient";
 import Table from './components/Table';
 
 function App() {
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+    const toggleTheme = () => {
+        if (theme === 'light') {
+          setTheme('dark');
+        } else {
+          setTheme('light');
+        }
+      };
     // const apiClient = useMemo(() => new ApiClient(), [])
 
     // const fetchData = useCallback(async () => {
@@ -16,8 +24,14 @@ function App() {
     //     fetchData().then(() => {})
     // }, [fetchData])
 
+    useEffect(() => {
+        localStorage.setItem('theme', theme);
+        document.body.className = theme;
+    }, [theme]);
+
     return (
-        <div className="App">
+        <div className={`App ${theme}`}>
+            <button onClick={toggleTheme}>Toggle Theme</button>
             <Table />
         </div>
     );
