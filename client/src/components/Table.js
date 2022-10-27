@@ -1,10 +1,9 @@
-import { useState } from "react";
-import tableDataJSON from "../tableData.json";
+import { useState, useEffect } from "react";
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 
-export default function Table() {
-  const [tableData, setTableData] = useState(tableDataJSON.data);
+export default function Table({userList}) {
+  const [tableData, setTableData] = useState(userList);
   
   const columns = [
     { label: "First Name", accessor: "firstName" },
@@ -29,6 +28,10 @@ export default function Table() {
       setTableData(sorted);
     }
   };
+
+  useEffect(() => {
+    setTableData(userList)
+}, [userList]);
   
   return (
     <div>
