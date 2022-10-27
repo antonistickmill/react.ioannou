@@ -20,7 +20,7 @@ function App() {
   
   const filterdata = (searchValue) => {
     if (searchValue === "") {
-      return data;
+      return tableDataJSON.data;
     }
     return data.filter(
       (userData) => userData.firstName.toLowerCase().includes(searchValue.toLowerCase())
