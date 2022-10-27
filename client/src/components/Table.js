@@ -17,13 +17,23 @@ export default function Table() {
     { label: "Updated At", accessor: "updatedAt" },
   ];
 
+  const handleSorting = (sortField, sortOrder) => {
+    if (sortField) {
+      const sorted = [...tableData].sort((a, b) => {
+       return (
+        a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
+         numeric: true,
+        }) * (sortOrder === "asc" ? 1 : -1)
+       );
+      });
+      setTableData(sorted);
+    }
+  };
+  
   return (
     <div>
       <table className="table">
-      <caption>
-        Table
-      </caption>
-      <TableHead columns={columns} />
+      <TableHead columns={columns} handleSorting={handleSorting} />
       <TableBody columns={columns} tableData={tableData} />
       </table>
     </div>
